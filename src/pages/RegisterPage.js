@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Container from "../assets/styles/Container";
 import SubmitButton from "../assets/styles/SubmitButton";
 
@@ -20,7 +21,11 @@ export default function RegisterPage() {
 
         <SubmitButton type="submit">Cadastrar</SubmitButton>
       </form>
-      <h2>Já tem uma conta? Entre agora!</h2>
+      <h2>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          Já tem uma conta? Entre agora!
+        </Link>
+      </h2>
     </Container>
   );
 }

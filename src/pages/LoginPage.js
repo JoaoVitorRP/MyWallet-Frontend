@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SubmitButton from "../assets/styles/SubmitButton";
 import Container from "../assets/styles/Container";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   return (
@@ -15,7 +16,11 @@ export default function LoginPage() {
 
         <SubmitButton type="submit">Entrar</SubmitButton>
       </form>
-      <h2>Primeira vez? Cadastre-se!</h2>
+      <h2>
+        <Link to="/register" style={{ textDecoration: "none", color: "inherit" }}>
+          Primeira vez? Cadastre-se!
+        </Link>
+      </h2>
     </Container>
   );
 }

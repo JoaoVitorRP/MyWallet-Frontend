@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { COLORS } from "../constants/COLORS";
 const { WHITE, LIGHTGRAY } = COLORS;
 
 export default function WalletPage() {
+  const navigate = useNavigate();
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -15,12 +18,12 @@ export default function WalletPage() {
       </HistoryContainer>
 
       <ButtonsContainer>
-        <InOutButton>
+        <InOutButton onClick={() => navigate("/submit-balance/intake")}>
           <ion-icon name="add-circle-outline"></ion-icon>
           Nova <br /> entrada
         </InOutButton>
 
-        <InOutButton>
+        <InOutButton onClick={() => navigate("/submit-balance/outtake")}>
           <ion-icon name="remove-circle-outline"></ion-icon>
           Nova <br /> saída
         </InOutButton>
@@ -39,17 +42,17 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-    width: 90vw;
-    max-width: 700px;
+  width: 90vw;
+  max-width: 700px;
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    ion-icon {
-        font-size: 35px;
-        color: ${WHITE};
-    }
-`
+  ion-icon {
+    font-size: 35px;
+    color: ${WHITE};
+  }
+`;
 
 const HistoryContainer = styled.div`
   width: 90vw;

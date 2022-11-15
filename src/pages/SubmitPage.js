@@ -1,11 +1,15 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import SubmitButton from "../assets/styles/SubmitButton";
 
 export default function SubmitPage() {
+  let { type } = useParams();
+  type === 'intake' ? type = 'entrada' : type = 'saída';
+
   return (
     <MainContainer>
       <HeaderContainer>
-        <h3>Nova entrada</h3>
+        <h3>Nova {type}</h3>
       </HeaderContainer>
       <form>
         <label htmlFor="value">Valor:</label>
@@ -14,7 +18,7 @@ export default function SubmitPage() {
         <label htmlFor="description">Descrição:</label>
         <input id="description" placeholder="Insira uma descrição" required />
 
-        <SubmitButton>Salvar entrada</SubmitButton>
+        <SubmitButton>Salvar {type}</SubmitButton>
       </form>
     </MainContainer>
   );
