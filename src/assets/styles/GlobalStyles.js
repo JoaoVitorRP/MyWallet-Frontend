@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { COLORS } from "../../constants/COLORS";
-const { DARKPURPLE, LIGHTPURPLE, WHITE, BLACK, LIGHTGRAY } = COLORS;
+const { DARKPURPLE, LIGHTPURPLE, WHITE, BLACK, LIGHTGRAY, YELLOW } = COLORS;
 
 const GlobalStyles = createGlobalStyle`
     * {
@@ -41,6 +41,16 @@ const GlobalStyles = createGlobalStyle`
         font-weight: 700;
         color: ${WHITE};
         line-height: 30px;
+    }
+
+    /* Error messages: */
+    h4{
+        margin: -7px 0px 13px 0px;
+
+        font-family: 'Raleway', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: ${YELLOW};
     }
 
     form {
