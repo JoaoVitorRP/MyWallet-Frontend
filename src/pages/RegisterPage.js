@@ -19,7 +19,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (passwordConfirmation !== user.password) {
-      setError("As senhas devem ser iguais!");
+      setError({ status: 401, message: "As senhas não coincidem!" });
       return;
     }
 
@@ -27,7 +27,8 @@ export default function RegisterPage() {
       await axios.post("http://localhost:5000/register", user);
       navigate("/");
     } catch (err) {
-      console.log(err);
+      setError({ status: err.response.status, message: err.response.data });
+      console.log(err.response.data);
     }
   }
 
@@ -42,6 +43,12 @@ export default function RegisterPage() {
           required
           onChange={(e) => setUser({ ...user, name: e.target.value })}
         />
+        {error?.message === '"name" length must be at least 3 characters long' ? (
+          <h4>O nome deve ter no mínimo 3 caracteres!</h4>
+        ) : null}
+        {error?.message === '"name" length must be less than or equal to 30 characters long' ? (
+          <h4>O nome deve ter menos que 30 caracteres!</h4>
+        ) : null}
 
         <label htmlFor="email">Email:</label>
         <input
@@ -51,6 +58,7 @@ export default function RegisterPage() {
           required
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
+        {error?.status === 409 ? <h4>{error.message}</h4> : null}
 
         <label htmlFor="password">Senha:</label>
         <input
@@ -60,6 +68,9 @@ export default function RegisterPage() {
           required
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
+        {error?.message === '"password" length must be at least 6 characters long' ? (
+          <h4>A senha deve ter no mínimo 6 caracteres</h4>
+        ) : null}
 
         <label htmlFor="confirm-password">Confirme a senha:</label>
         <input
@@ -69,7 +80,7 @@ export default function RegisterPage() {
           required
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-        <h4>{error}</h4>
+        {error?.status === 401 ? <h4>{error.message}</h4> : null}
 
         <SubmitButton type="submit">Cadastrar</SubmitButton>
       </form>
