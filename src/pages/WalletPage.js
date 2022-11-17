@@ -1,21 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import HistoryContainer from "../components/HistoryContainer";
 import { COLORS } from "../constants/COLORS";
-const { WHITE, LIGHTGRAY } = COLORS;
+const { WHITE } = COLORS;
 
-export default function WalletPage() {
+export default function WalletPage(props) {
+  const { userInfo } = props;
+
   const navigate = useNavigate();
+
 
   return (
     <MainContainer>
       <HeaderContainer>
-        <h3>Olá, Fulano</h3>
+        <h3>Olá, {userInfo.name}</h3>
         <ion-icon name="exit-outline"></ion-icon>
       </HeaderContainer>
 
-      <HistoryContainer>
-        Não há registros de <br /> entrada ou saída
-      </HistoryContainer>
+      <HistoryContainer token={userInfo.token} />
 
       <ButtonsContainer>
         <InOutButton onClick={() => navigate("/submit-balance/intake")}>
@@ -52,24 +56,6 @@ const HeaderContainer = styled.div`
     font-size: 35px;
     color: ${WHITE};
   }
-`;
-
-const HistoryContainer = styled.div`
-  width: 90vw;
-  max-width: 700px;
-  height: 80vh;
-  background-color: ${WHITE};
-  border-radius: 5px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family: "Raleway", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  text-align: center;
-  color: ${LIGHTGRAY};
 `;
 
 const ButtonsContainer = styled.div`

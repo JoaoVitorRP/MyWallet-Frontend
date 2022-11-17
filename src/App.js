@@ -6,16 +6,19 @@ import RegisterPage from "./pages/RegisterPage";
 import WalletPage from "./pages/WalletPage";
 import SubmitPage from "./pages/SubmitPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 export default function App() {
+  const [userInfo, setUserInfo] = useState();
+
   return (
     <BrowserRouter>
       <CssReset />
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage setUserInfo={setUserInfo}/>} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/wallet" element={<WalletPage />} />
+        <Route path="/wallet" element={<WalletPage userInfo={userInfo}/>} />
         <Route path="/submit-balance/:type" element={<SubmitPage />} />
       </Routes>
     </BrowserRouter>

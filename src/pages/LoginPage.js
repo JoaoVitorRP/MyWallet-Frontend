@@ -1,11 +1,12 @@
-import styled from "styled-components";
 import SubmitButton from "../assets/styles/SubmitButton";
 import Container from "../assets/styles/Container";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
+  const {setUserInfo} = props;
+
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -18,7 +19,8 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/login", user);
+      const res = await axios.post("http://localhost:5000/login", user);
+      setUserInfo(res.data);
       navigate("/wallet");
     } catch (err) {
       setError({ status: err.response.status, message: err.response.data });
