@@ -16,10 +16,10 @@ export default function App() {
       <CssReset />
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<LoginPage setUserInfo={setUserInfo}/>} />
+        <Route path="/" element={<LoginPage setUserInfo={setUserInfo} />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/wallet" element={<WalletPage userInfo={userInfo}/>} />
-        <Route path="/submit-balance/:type" element={<SubmitPage />} />
+        <Route path="/wallet" element={<WalletPage userInfo={userInfo} />} />
+        <Route path="/submit-balance/:type" element={<SubmitPage userInfo={userInfo} />} />
       </Routes>
     </BrowserRouter>
   );
