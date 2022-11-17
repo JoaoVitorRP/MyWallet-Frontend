@@ -45,7 +45,7 @@ export default function LoginPage(props) {
         <input
           type="password"
           id="password"
-          placeholder="Mínimo 6 caracteres"
+          placeholder="Digite sua senha"
           required
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
