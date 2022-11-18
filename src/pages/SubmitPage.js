@@ -16,6 +16,7 @@ export default function SubmitPage(props) {
     description: "",
     type,
   });
+  const [error, setError] = useState();
 
   async function submitBalance(e) {
     e.preventDefault();
@@ -33,7 +34,7 @@ export default function SubmitPage(props) {
         type,
       });
     } catch (err) {
-      console.log(err);
+      setError(err.response.data);
     }
   }
 
@@ -50,8 +51,15 @@ export default function SubmitPage(props) {
           value={balanceForm.value}
           placeholder="Insira o valor em Reais"
           required
-          onChange={(e) => setBalanceForm({ ...balanceForm, value: e.target.value })}
+          onChange={(e) => setBalanceForm({ ...balanceForm, value: Number(e.target.value) })}
         />
+        {error === '"value" must be a safe number' || error === '"value" must be less than or equal to 99999999' ? (
+          <h4>O valor deve ter no máximo 8 dígitos</h4>
+        ) : null}
+        {error === '"value" must be a positive number' ? <h4>O valor deve ser maior que zero</h4> : null}
+        {error === '"value" must have no more than 2 decimal places' ? (
+          <h4>O valor deve ter no máximo 2 casas decimais</h4>
+        ) : null}
 
         <label htmlFor="description">Descrição:</label>
         <input
@@ -61,6 +69,12 @@ export default function SubmitPage(props) {
           required
           onChange={(e) => setBalanceForm({ ...balanceForm, description: e.target.value })}
         />
+        {error === '"description" length must be at least 3 characters long' ? (
+          <h4>A descrição deve ter mais que 3 caracteres</h4>
+        ) : null}
+        {error === '"description" length must be less than or equal to 25 characters long' ? (
+          <h4>A descrição deve ter até 25 caracteres</h4>
+        ) : null}
 
         <SubmitButton>Salvar {balanceType}</SubmitButton>
       </form>
