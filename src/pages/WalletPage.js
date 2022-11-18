@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HistoryContainer from "../components/HistoryContainer";
@@ -9,12 +10,28 @@ export default function WalletPage(props) {
 
   const navigate = useNavigate();
 
+  async function logoff() {
+    if (window.confirm("Deseja sair?")) {
+      try {
+        await axios.delete("http://localhost:5000/sessions", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <MainContainer>
       <HeaderContainer>
         <h3>Olá, {userInfo.name}</h3>
-        <ion-icon name="exit-outline"></ion-icon>
+        <ion-button onClick={logoff}>
+          <ion-icon name="exit-outline"></ion-icon>
+        </ion-button>
       </HeaderContainer>
 
       <HistoryContainer token={userInfo.token} />
@@ -49,6 +66,11 @@ const HeaderContainer = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  ion-button {
+    height: 40px;
+    cursor: pointer;
+  }
 
   ion-icon {
     font-size: 35px;
