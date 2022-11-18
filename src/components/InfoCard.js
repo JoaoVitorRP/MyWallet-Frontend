@@ -3,11 +3,11 @@ import { COLORS } from "../constants/COLORS";
 const { BLACK, LIGHTGRAY, GREEN, RED } = COLORS;
 
 export default function InfoCard(props) {
-  const { cardInfo } = props;
+  const { cardInfo, index } = props;
   const { date, description, type, value } = cardInfo;
 
   return (
-    <Card>
+    <Card isEven={index %2 === 0}>
       <Date>{date}</Date>
       <Description>{description}</Description>
       <Value type={type}>{value}</Value>
@@ -17,11 +17,16 @@ export default function InfoCard(props) {
 
 const Card = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  padding: 15px 20px;
+  background-color: ${props => props.isEven ? `rgb(255, 255, 255)` : `rgb(240, 240, 240)`};
+
+  display: flex;
+  align-items: center;
 
   position: relative;
 
   text-align: left;
+  word-wrap: break-word;
 `;
 
 const Date = styled.span`
@@ -31,12 +36,16 @@ const Date = styled.span`
 `;
 
 const Description = styled.span`
+  max-width: 50%;
   color: ${BLACK};
 `;
 
 const Value = styled.span`
+  max-width: 20%;
+
   color: ${(props) => (props.type === "intake" ? `${GREEN}` : `${RED}`)};
+  word-wrap: break-word;
 
   position: absolute;
-  right: 0px;
+  right: 20px;
 `;

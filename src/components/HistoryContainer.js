@@ -30,7 +30,7 @@ export default function HistoryContainer(props) {
             money -= Number(obj.value);
           }
         });
-        setBalance(money);
+        setBalance(money.toFixed(2));
       } catch (err) {
         console.log(err);
       }
@@ -39,7 +39,7 @@ export default function HistoryContainer(props) {
   }, []);
 
   return (
-    <HistoryDiv isFlex={history.length === 0}>
+    <HistoryDiv>
       {history.length === 0 ? (
         <span>
           Não há registros de <br /> entrada ou saída
@@ -47,7 +47,7 @@ export default function HistoryContainer(props) {
       ) : (
         <InfoDiv>
           {history.map((h, index) => {
-            return <InfoCard cardInfo={h} balance={balance} setBalance={setBalance} key={index} />;
+            return <InfoCard cardInfo={h} index={index} key={index} />;
           })}
         </InfoDiv>
       )}
@@ -64,12 +64,13 @@ const HistoryDiv = styled.div`
   width: 90vw;
   max-width: 700px;
   height: 67vh;
-  padding: 20px;
+  padding-top: 5px;
   background-color: ${WHITE};
   border-radius: 5px;
   z-index: 1;
 
-  display: ${props => props.isFlex ? 'flex' : 'inline'};
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -85,17 +86,12 @@ const InfoDiv = styled.div`
   width: 100%;
   height: 93%;
   overflow-y: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const BalanceDiv = styled.div`
   width: 100%;
-  padding: inherit;
+  height: 60px;
+  padding: 20px;
   box-shadow: 0px -8px 35px -10px rgba(105,105,105,1);
   background-color: ${WHITE};
   border-radius: 0px 0px 5px 5px;
@@ -104,9 +100,9 @@ const BalanceDiv = styled.div`
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   justify-content: space-between;
 
-  position: absolute;
+  /* position: absolute;
   bottom: 0px;
-  right: 0px;
+  right: 0px; */
 `;
 
 const Text = styled.span`
