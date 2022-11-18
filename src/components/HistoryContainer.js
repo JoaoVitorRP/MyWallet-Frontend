@@ -13,7 +13,7 @@ export default function HistoryContainer(props) {
   useEffect(() => {
     async function getHistory() {
       try {
-        const res = await axios.get("http://localhost:5000/history", {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/history`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

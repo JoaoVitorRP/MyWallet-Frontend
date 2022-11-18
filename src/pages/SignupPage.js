@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "../assets/styles/Container";
 import SubmitButton from "../assets/styles/SubmitButton";
 
-export default function RegisterPage() {
+export default function SignupPage() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -24,7 +24,7 @@ export default function RegisterPage() {
     }
 
     try {
-      await axios.post("http://localhost:5000/register", user);
+      await axios.post(`${process.env.REACT_APP_API_URL}/accounts`, user);
       navigate("/");
     } catch (err) {
       setError({ status: err.response.status, message: err.response.data });

@@ -19,7 +19,7 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/login", user);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/sessions`, user);
       setUserInfo(res.data);
       navigate("/wallet");
     } catch (err) {
@@ -54,7 +54,7 @@ export default function LoginPage(props) {
         <SubmitButton type="submit">Entrar</SubmitButton>
       </form>
       <h2>
-        <Link to="/register" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}>
           Primeira vez? Cadastre-se!
         </Link>
       </h2>

@@ -22,7 +22,7 @@ export default function SubmitPage(props) {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/history", balanceForm, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/history`, balanceForm, {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },

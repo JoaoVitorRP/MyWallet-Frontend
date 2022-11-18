@@ -13,7 +13,7 @@ export default function WalletPage(props) {
   async function logoff() {
     if (window.confirm("Deseja sair?")) {
       try {
-        await axios.delete("http://localhost:5000/sessions", {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/sessions`, {
           headers: {
             Authorization: `Bearer ${userInfo.token}`,
           },
