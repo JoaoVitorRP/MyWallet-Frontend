@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import SubmitButton from "../assets/styles/SubmitButton";
+import { COLORS } from "../constants/COLORS";
+const { WHITE } = COLORS;
 
 export default function SubmitPage(props) {
   const { userInfo } = props;
+
+  const navigate = useNavigate();
 
   const { type } = useParams();
   let balanceType;
@@ -41,6 +45,9 @@ export default function SubmitPage(props) {
   return (
     <MainContainer>
       <HeaderContainer>
+        <ion-button onClick={() => navigate("/wallet")}>
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
         <h3>Nova {balanceType}</h3>
       </HeaderContainer>
       <form onSubmit={submitBalance}>
@@ -96,5 +103,18 @@ const HeaderContainer = styled.div`
   width: 90vw;
   max-width: 700px;
 
+  display: flex;
+
   text-align: left;
+
+  ion-button {
+    height: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  ion-icon {
+    font-size: 30px;
+    color: ${WHITE};
+  }
 `;
