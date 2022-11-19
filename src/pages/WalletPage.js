@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HistoryContainer from "../components/HistoryContainer";
@@ -7,6 +8,8 @@ const { WHITE } = COLORS;
 
 export default function WalletPage(props) {
   const { userInfo } = props;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -34,15 +37,15 @@ export default function WalletPage(props) {
         </ion-button>
       </HeaderContainer>
 
-      <HistoryContainer token={userInfo.token} />
+      <HistoryContainer token={userInfo.token} isLoading={isLoading} setIsLoading={setIsLoading} />
 
       <ButtonsContainer>
-        <InOutButton onClick={() => navigate("/submit-balance/intake")}>
+        <InOutButton onClick={() => navigate("/submit-balance/intake")} disabled={isLoading}>
           <ion-icon name="add-circle-outline"></ion-icon>
           Nova <br /> entrada
         </InOutButton>
 
-        <InOutButton onClick={() => navigate("/submit-balance/outtake")}>
+        <InOutButton onClick={() => navigate("/submit-balance/outtake")} disabled={isLoading}>
           <ion-icon name="remove-circle-outline"></ion-icon>
           Nova <br /> saída
         </InOutButton>
@@ -50,6 +53,7 @@ export default function WalletPage(props) {
     </MainContainer>
   );
 }
+
 const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -91,6 +95,7 @@ const InOutButton = styled.button`
   width: 48%;
   height: 114px;
   padding: 55px 10px 10px 10px;
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
   text-align: left;
 

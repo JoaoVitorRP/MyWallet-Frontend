@@ -72,7 +72,6 @@ const GlobalStyles = createGlobalStyle`
         max-width: 700px;
         height: 58px;
         padding: 15px;
-        background-color: ${WHITE};
         border: none;
         border-radius: 5px;
         margin-bottom: 13px;

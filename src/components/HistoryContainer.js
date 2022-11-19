@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import InfoCard from "./InfoCard";
+import LoadingCircle from "./LoadingCircle";
 import { COLORS } from "../constants/COLORS";
 const { WHITE, BLACK, LIGHTGRAY, GREEN, RED } = COLORS;
 
 export default function HistoryContainer(props) {
-  const { token } = props;
+  const { token, isLoading, setIsLoading } = props;
   const [history, setHistory] = useState([]);
   const [balance, setBalance] = useState(0);
 
@@ -34,13 +35,19 @@ export default function HistoryContainer(props) {
       } catch (err) {
         console.log(err);
       }
+
+      setIsLoading(false);
     }
     getHistory();
   }, []);
 
   return (
     <HistoryDiv>
-      {history.length === 0 ? (
+      {isLoading ? (
+        <LoadingContainer isLoading={isLoading}>
+          <LoadingCircle />
+        </LoadingContainer>
+      ) : history.length === 0 ? (
         <span>
           Não há registros de <br /> entrada ou saída
         </span>
@@ -59,6 +66,16 @@ export default function HistoryContainer(props) {
     </HistoryDiv>
   );
 }
+
+const LoadingContainer = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: ${(props) => (props.isLoading ? "flex" : "none")};
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const HistoryDiv = styled.div`
   width: 90vw;
@@ -92,17 +109,13 @@ const BalanceDiv = styled.div`
   width: 100%;
   height: 60px;
   padding: 20px;
-  box-shadow: 0px -8px 35px -10px rgba(105,105,105,1);
+  box-shadow: 0px -8px 35px -10px rgba(105, 105, 105, 1);
   background-color: ${WHITE};
   border-radius: 0px 0px 5px 5px;
   z-index: 2;
 
   display: ${(props) => (props.isHidden ? "none" : "flex")};
   justify-content: space-between;
-
-  /* position: absolute;
-  bottom: 0px;
-  right: 0px; */
 `;
 
 const Text = styled.span`
@@ -111,5 +124,5 @@ const Text = styled.span`
 `;
 
 const Balance = styled.span`
-  color: ${props => props.isPositive ? `${GREEN}` : `${RED}`};
+  color: ${(props) => (props.isPositive ? `${GREEN}` : `${RED}`)};
 `;
