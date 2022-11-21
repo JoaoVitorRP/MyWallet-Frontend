@@ -27,6 +27,7 @@ export default function SignupPage() {
 
     if (passwordConfirmation !== user.password) {
       setError({ status: 401, message: "As senhas não coincidem!" });
+      setIsDisbaled(false);
       return;
     }
 
